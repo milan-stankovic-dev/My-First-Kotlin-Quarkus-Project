@@ -5,13 +5,17 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType.IDENTITY
 import jakarta.persistence.Id
 import java.math.BigDecimal
+import java.math.BigDecimal.ZERO
 
 @Entity
-class Book {
+class Book (
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    var id: Long? = null
-    lateinit var title: String
-    lateinit var price: BigDecimal
-    lateinit var isbn: String
+    var id: Long? = null,
+    var title: String,
+    var price: BigDecimal,
+    var isbn: String) {
+    
+    constructor() : this(
+        null, "", ZERO, "")
 }

@@ -5,7 +5,8 @@ import jakarta.transaction.Transactional
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType.APPLICATION_JSON
 import jakarta.ws.rs.core.Response
-import org.acme.BookTitleDTO
+import org.acme.dto.BookSaveDTO
+import org.acme.dto.BookTitleDTO
 import org.acme.model.Book
 import org.acme.service.BookService
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody
@@ -24,7 +25,7 @@ class BookController {
 
     @POST
     @Transactional
-    fun saveBook(bookToSave: Book) : Response {
+    fun saveBook(bookToSave: BookSaveDTO) : Response {
         return Response.ok(
             bookService.saveABook(bookToSave)).build()
     }
@@ -41,6 +42,5 @@ class BookController {
     fun updateTitle(@RequestBody newTitle: BookTitleDTO,
                     @PathParam("id") id: Long): Response =
         Response.ok(
-            bookService.updateTitle(id, newTitle)
-        ).build();
+            bookService.updateTitle(id, newTitle)).build();
 }
