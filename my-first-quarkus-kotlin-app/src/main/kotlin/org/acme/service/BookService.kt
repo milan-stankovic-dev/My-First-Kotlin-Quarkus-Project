@@ -2,6 +2,7 @@ package org.acme.service
 
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
+import jakarta.persistence.EntityNotFoundException
 import jakarta.transaction.Transactional
 import jakarta.ws.rs.NotFoundException
 import org.acme.dto.BookFullDTO
@@ -33,7 +34,10 @@ class BookService {
 
     @Transactional
     fun deleteById(id: Long) {
-        bookRepository.deleteById(id)
+        val successful = bookRepository.deleteById(id)
+        
+        if(!successful) 
+            throw EntityNotFoundException("Entity with given id does not exist.")
     }
 
 
