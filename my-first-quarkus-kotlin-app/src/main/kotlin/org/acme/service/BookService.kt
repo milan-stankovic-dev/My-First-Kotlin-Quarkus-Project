@@ -1,6 +1,5 @@
 package org.acme.service
 
-import io.quarkus.hibernate.orm.panache.kotlin.PanacheRepository
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import jakarta.persistence.EntityNotFoundException
@@ -10,7 +9,7 @@ import org.acme.dto.BookFullDTO
 import org.acme.dto.BookSaveDTO
 import org.acme.dto.BookTitleDTO
 import org.acme.mapper.toBook
-import org.acme.mapper.toFullDTO
+import org.acme.mapper.toDisplayDTO
 import org.acme.model.Author
 import org.acme.model.Book
 import org.acme.repository.AuthorRepository
@@ -26,7 +25,7 @@ class BookService {
     fun getAllBooks() : List<BookFullDTO> =
         repository
         .streamAll().map {
-            it.toFullDTO()
+            it.toDisplayDTO()
         }.toList()
 
     @Transactional
@@ -40,7 +39,7 @@ class BookService {
         book.author = authorFromDB
         
         repository.persist(book)
-        return book.toFullDTO()
+        return book.toDisplayDTO()
     }
 
     @Transactional
@@ -63,6 +62,6 @@ class BookService {
         bookByIdFromDB.title = newTitle.title
         repository.persist(bookByIdFromDB)
 
-        return bookByIdFromDB.toFullDTO()
+        return bookByIdFromDB.toDisplayDTO()
     }
 }

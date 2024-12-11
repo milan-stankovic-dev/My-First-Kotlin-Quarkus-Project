@@ -1,11 +1,15 @@
 package org.acme.mapper
 
 import org.acme.dto.AuthorBookDisplayDTO
+import org.acme.dto.AuthorFullDTO
+import org.acme.dto.AuthorFullSaveDTO
 import org.acme.dto.AuthorSaveDTO
 import org.acme.model.Author
 
-fun Author.toFullDTO() = AuthorBookDisplayDTO(
-    id ?: throw IllegalStateException("Found null ID for author in mapper."),
+const val NULL_ID_ERROR: String = "Found null ID for author in mapper."
+
+fun Author.toDisplayDTO() = AuthorBookDisplayDTO(
+    id ?: throw IllegalStateException(NULL_ID_ERROR),
     name, lastName)
 
 fun AuthorSaveDTO.toAuthor() = Author(null, name, lastName, mutableListOf())
@@ -13,3 +17,13 @@ fun AuthorSaveDTO.toAuthor() = Author(null, name, lastName, mutableListOf())
 fun Author.toSaveDTO() = AuthorSaveDTO(name, lastName)
 
 fun AuthorBookDisplayDTO.toAuthor() = Author(id, name, lastName)
+
+fun Author.toFullDTO() = AuthorFullDTO(
+    getIdOrThrow(id),
+    name, lastName, books.map { it.toBookAuthorDisplayDTO() }.toList())
+
+fun Author.toFullSaveDTO() = AuthorFullSaveDTO(
+    getIdOrThrow(id), name, lastName)
+
+fun getIdOrThrow(id: Long?) = 
+    id ?: throw IllegalStateException(NULL_ID_ERROR)
