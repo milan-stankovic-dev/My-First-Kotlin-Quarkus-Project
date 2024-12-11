@@ -55,6 +55,7 @@ class BookService {
     @Transactional
     fun updateTitle(id: Long, newTitle: BookTitleDTO): BookFullDTO {
         val bookByIdFromDB: Book = repository.findById(id)
+            
             ?: throw NotFoundException(
                 "Book with said id does not exist."
             )
