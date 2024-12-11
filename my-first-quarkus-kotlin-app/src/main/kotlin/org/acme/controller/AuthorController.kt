@@ -28,4 +28,10 @@ class AuthorController {
         service.deleteById(id)
         return Response.noContent().build()
     }
+    
+    @PUT
+    @Path("/{id}")
+    fun changeEntireAuthor(id: Long,
+                           authorData: AuthorSaveDTO) : Response = 
+        Response.ok(service.update(id, authorData)).build()
 }

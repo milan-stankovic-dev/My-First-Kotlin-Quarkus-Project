@@ -4,16 +4,20 @@ import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import jakarta.persistence.EntityNotFoundException
 import jakarta.transaction.Transactional
+import org.acme.dto.AuthorBookDisplayDTO
 import org.acme.dto.AuthorFullDTO
 import org.acme.dto.AuthorSaveDTO
 import org.acme.mapper.toAuthor
+import org.acme.mapper.toDisplayDTO
 import org.acme.mapper.toFullDTO
+import org.acme.model.Author
 import org.acme.repository.AuthorRepository
 
 @ApplicationScoped
 class AuthorService {
     @Inject
     lateinit var repository: AuthorRepository
+    final val AUTHOR_NOT_FOUND_ERROR = "Cannot find author with said id."
     
     fun getById(id: Long): AuthorFullDTO =
         repository.findById(id)?.toFullDTO()
@@ -31,9 +35,20 @@ class AuthorService {
     @Transactional
     fun deleteById(id: Long) {
         if (!repository.deleteById(id)) {
-            throw EntityNotFoundException(
-                "Cannot find author with id $id")
+            throw EntityNotFoundException(AUTHOR_NOT_FOUND_ERROR)
         }
+    }
+    
+    @Transactional
+    fun update(id: Long, authorData: AuthorSaveDTO): AuthorBookDisplayDTO {
+        val authorFromDB: Author = 
+            repository.findById(id) 
+                ?: throw EntityNotFoundException(AUTHOR_NOT_FOUND_ERROR)
+        
+        authorFromDB.name = authorData.name
+        authorFromDB.lastName = authorData.lastName
+        
+        return authorFromDB.toDisplayDTO()
     }
 
 }
