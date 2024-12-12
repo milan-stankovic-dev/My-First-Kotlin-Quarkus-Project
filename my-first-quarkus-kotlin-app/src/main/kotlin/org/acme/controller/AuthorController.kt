@@ -4,7 +4,7 @@ import jakarta.inject.Inject
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType.APPLICATION_JSON
 import jakarta.ws.rs.core.Response
-import org.acme.dto.AuthorSaveDTO
+import org.acme.dto.author.AuthorSaveDTO
 import org.acme.service.AuthorService
 
 @Path("/author")
@@ -32,6 +32,7 @@ class AuthorController {
     @PUT
     @Path("/{id}")
     fun changeEntireAuthor(id: Long,
-                           authorData: AuthorSaveDTO) : Response = 
+                           authorData: AuthorSaveDTO
+    ) : Response = 
         Response.ok(service.update(id, authorData)).build()
 }

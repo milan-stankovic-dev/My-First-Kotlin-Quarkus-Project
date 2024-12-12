@@ -4,9 +4,9 @@ import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import jakarta.persistence.EntityNotFoundException
 import jakarta.transaction.Transactional
-import org.acme.dto.AuthorBookDisplayDTO
-import org.acme.dto.AuthorFullDTO
-import org.acme.dto.AuthorSaveDTO
+import org.acme.dto.author.AuthorBookDisplayDTO
+import org.acme.dto.author.AuthorFullDTO
+import org.acme.dto.author.AuthorSaveDTO
 import org.acme.mapper.toAuthor
 import org.acme.mapper.toDisplayDTO
 import org.acme.mapper.toFullDTO

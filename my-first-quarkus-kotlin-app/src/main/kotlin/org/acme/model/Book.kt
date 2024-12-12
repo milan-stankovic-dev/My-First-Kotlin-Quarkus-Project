@@ -1,6 +1,7 @@
 package org.acme.model
 
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheEntityBase
+import jakarta.persistence.CascadeType
 import jakarta.persistence.CascadeType.ALL
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
@@ -22,8 +23,16 @@ class Book (
     var isbn: String,
     @ManyToOne(cascade = [ALL])
     @JoinColumn(name= "author_id", nullable = false)
-    var author: Author?) : PanacheEntityBase {
+    var author: Author?,
+    @ManyToOne(cascade = [ALL])
+    @JoinColumn(name = "category_id")
+    var category: Category?,
+    @ManyToOne(cascade = [ALL])
+    @JoinColumn(name = "genre_id")
+    var genre: Genre?
+    ) : PanacheEntityBase {
     
     constructor() : this(
-        null, "", ZERO, "", null)
+        null, "", ZERO, "",
+        null, null, null)
 }

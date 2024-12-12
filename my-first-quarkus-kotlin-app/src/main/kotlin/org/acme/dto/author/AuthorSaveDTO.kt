@@ -1,4 +1,4 @@
-package org.acme.dto
+package org.acme.dto.author
 
 data class AuthorSaveDTO(
     val name: String,

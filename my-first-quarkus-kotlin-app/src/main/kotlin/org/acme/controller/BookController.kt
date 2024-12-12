@@ -5,9 +5,8 @@ import jakarta.transaction.Transactional
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType.APPLICATION_JSON
 import jakarta.ws.rs.core.Response
-import org.acme.dto.BookSaveDTO
-import org.acme.dto.BookTitleDTO
-import org.acme.model.Book
+import org.acme.dto.book.BookSaveDTO
+import org.acme.dto.book.BookTitleDTO
 import org.acme.service.BookService
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody
 

@@ -1,4 +1,4 @@
-package org.acme.dto
+package org.acme.dto.book
 
 import java.math.BigDecimal
 

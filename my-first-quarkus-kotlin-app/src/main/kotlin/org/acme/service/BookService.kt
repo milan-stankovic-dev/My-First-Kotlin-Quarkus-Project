@@ -5,9 +5,9 @@ import jakarta.inject.Inject
 import jakarta.persistence.EntityNotFoundException
 import jakarta.transaction.Transactional
 import jakarta.ws.rs.NotFoundException
-import org.acme.dto.BookFullDTO
-import org.acme.dto.BookSaveDTO
-import org.acme.dto.BookTitleDTO
+import org.acme.dto.book.BookFullDTO
+import org.acme.dto.book.BookSaveDTO
+import org.acme.dto.book.BookTitleDTO
 import org.acme.mapper.toBook
 import org.acme.mapper.toDisplayDTO
 import org.acme.model.Author

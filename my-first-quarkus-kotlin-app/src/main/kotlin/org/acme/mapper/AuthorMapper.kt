@@ -1,9 +1,9 @@
 package org.acme.mapper
 
-import org.acme.dto.AuthorBookDisplayDTO
-import org.acme.dto.AuthorFullDTO
-import org.acme.dto.AuthorFullSaveDTO
-import org.acme.dto.AuthorSaveDTO
+import org.acme.dto.author.AuthorBookDisplayDTO
+import org.acme.dto.author.AuthorFullDTO
+import org.acme.dto.author.AuthorFullSaveDTO
+import org.acme.dto.author.AuthorSaveDTO
 import org.acme.model.Author
 
 const val NULL_ID_ERROR: String = "Found null ID for author in mapper."
