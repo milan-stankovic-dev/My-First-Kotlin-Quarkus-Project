@@ -5,7 +5,7 @@ import org.acme.dto.book.BookFullDTO
 import org.acme.dto.book.BookSaveDTO
 import org.acme.model.Book
 
-fun Book.toDisplayDTO() : BookFullDTO = BookFullDTO(
+fun Book.toFullDTO() : BookFullDTO = BookFullDTO(
         id ?: throw IllegalArgumentException("Book ID found to be null in mapper"),
         title, price, isbn, 
     author?.toDisplayDTO() 

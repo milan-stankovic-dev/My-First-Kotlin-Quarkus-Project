@@ -9,7 +9,7 @@ import org.acme.dto.book.BookFullDTO
 import org.acme.dto.book.BookSaveDTO
 import org.acme.dto.book.BookTitleDTO
 import org.acme.mapper.toBook
-import org.acme.mapper.toDisplayDTO
+import org.acme.mapper.toFullDTO
 import org.acme.model.Author
 import org.acme.model.Book
 import org.acme.repository.AuthorRepository
@@ -25,7 +25,7 @@ class BookService {
     fun getAllBooks() : List<BookFullDTO> =
         repository
         .streamAll().map {
-            it.toDisplayDTO()
+            it.toFullDTO()
         }.toList()
 
     @Transactional
@@ -39,7 +39,7 @@ class BookService {
         book.author = authorFromDB
         
         repository.persist(book)
-        return book.toDisplayDTO()
+        return book.toFullDTO()
     }
 
     @Transactional
@@ -62,6 +62,6 @@ class BookService {
         bookByIdFromDB.title = newTitle.title
         repository.persist(bookByIdFromDB)
 
-        return bookByIdFromDB.toDisplayDTO()
+        return bookByIdFromDB.toFullDTO()
     }
 }

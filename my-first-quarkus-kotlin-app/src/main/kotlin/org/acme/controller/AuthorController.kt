@@ -32,7 +32,6 @@ class AuthorController {
     @PUT
     @Path("/{id}")
     fun changeEntireAuthor(id: Long,
-                           authorData: AuthorSaveDTO
-    ) : Response = 
+                           authorData: AuthorSaveDTO) : Response = 
         Response.ok(service.update(id, authorData)).build()
 }
