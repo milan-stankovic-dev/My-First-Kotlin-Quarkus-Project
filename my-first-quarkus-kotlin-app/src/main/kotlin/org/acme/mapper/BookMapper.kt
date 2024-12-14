@@ -1,5 +1,6 @@
 package org.acme.mapper
 
+import org.acme.constants.NULL_ID_ERROR
 import org.acme.dto.book.BookAuthorDisplayDTO
 import org.acme.dto.book.BookFullDTO
 import org.acme.dto.book.BookSaveDTO
@@ -13,7 +14,7 @@ fun Book.toFullDTO() : BookFullDTO = BookFullDTO(
     category?.toFullDTO() ?: throw IllegalStateException(NULL_ID_ERROR),
     genre?.toFullDTO() ?: throw IllegalStateException(NULL_ID_ERROR))
 
-fun BookSaveDTO.toBook() : Book = Book(null, title, price, isbn, null, null, null)
+fun BookSaveDTO.toBook() : Book = Book(null, title, price, isbn, null, null, null, null)
 fun Book.toBookAuthorDisplayDTO() : BookAuthorDisplayDTO = BookAuthorDisplayDTO(
     id ?: throw IllegalStateException("Book ID found to be null in mapper"),
     title,

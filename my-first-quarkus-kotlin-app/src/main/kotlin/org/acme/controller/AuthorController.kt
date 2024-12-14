@@ -24,14 +24,14 @@ class AuthorController {
     
     @DELETE
     @Path("/{id}")
-    fun deleteAuthorByID(id: Long) : Response {
+    fun deleteAuthorByID(@PathParam("id") id: Long) : Response {
         service.deleteById(id)
         return Response.noContent().build()
     }
     
     @PUT
     @Path("/{id}")
-    fun changeEntireAuthor(id: Long,
+    fun changeEntireAuthor(@PathParam("id") id: Long,
                            authorData: AuthorSaveDTO) : Response = 
         Response.ok(service.update(id, authorData)).build()
 }

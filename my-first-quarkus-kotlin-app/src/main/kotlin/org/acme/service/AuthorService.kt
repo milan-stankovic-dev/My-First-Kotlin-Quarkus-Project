@@ -4,6 +4,9 @@ import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import jakarta.persistence.EntityNotFoundException
 import jakarta.transaction.Transactional
+import org.acme.constants.METADATA
+import org.acme.constants.NOT_FOUND_BY_ID_ERROR
+import org.acme.dto.AuditMetadata
 import org.acme.dto.author.AuthorBookDisplayDTO
 import org.acme.dto.author.AuthorFullDTO
 import org.acme.dto.author.AuthorSaveDTO
@@ -19,6 +22,7 @@ class AuthorService {
     lateinit var repository: AuthorRepository
     final val AUTHOR_NOT_FOUND_ERROR = "Cannot find author with said id."
     
+    
     fun getById(id: Long): AuthorFullDTO =
         repository.findById(id)?.toFullDTO()
             ?: throw EntityNotFoundException(
@@ -27,16 +31,27 @@ class AuthorService {
     @Transactional
     fun save(authorSaveDTO: AuthorSaveDTO): AuthorFullDTO {
         val convertedAuthor = authorSaveDTO.toAuthor()
+        convertedAuthor.metadata = METADATA
         repository.persist(convertedAuthor)
         
         return convertedAuthor.toFullDTO()
     }
 
+//    @Transactional
+//    fun deleteById(id: Long) {
+//        if (!repository.deleteById(id)) {
+//            throw EntityNotFoundException(AUTHOR_NOT_FOUND_ERROR)
+//        }
+//    }
+
     @Transactional
     fun deleteById(id: Long) {
-        if (!repository.deleteById(id)) {
-            throw EntityNotFoundException(AUTHOR_NOT_FOUND_ERROR)
-        }
+        val authorByIdFromDB: Author = repository.findById(id)
+            ?: throw EntityNotFoundException(NOT_FOUND_BY_ID_ERROR)
+        
+        authorByIdFromDB.metadata = METADATA
+        authorByIdFromDB.books.forEach { it.metadata = METADATA }
+        repository.delete(authorByIdFromDB)  
     }
     
     @Transactional
@@ -47,6 +62,9 @@ class AuthorService {
         
         authorFromDB.name = authorData.name
         authorFromDB.lastName = authorData.lastName
+        authorFromDB.setMetadata(METADATA)
+        
+        repository.persist(authorFromDB)
         
         return authorFromDB.toDisplayDTO()
     }

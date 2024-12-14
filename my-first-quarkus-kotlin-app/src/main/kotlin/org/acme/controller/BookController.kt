@@ -31,7 +31,7 @@ class BookController {
 
     @DELETE
     @Path("{id}")
-    fun deleteById(id: Long) : Response {
+    fun deleteById(@PathParam("id") id: Long) : Response {
         bookService.deleteById(id)
         return Response.ok().build()
     }
