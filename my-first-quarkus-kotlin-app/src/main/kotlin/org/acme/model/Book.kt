@@ -1,15 +1,9 @@
 package org.acme.model
 
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheEntityBase
-import jakarta.persistence.CascadeType
+import jakarta.persistence.*
 import jakarta.persistence.CascadeType.ALL
-import jakarta.persistence.Entity
-import jakarta.persistence.EntityListeners
-import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType.IDENTITY
-import jakarta.persistence.Id
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.ManyToOne
 import org.acme.audit.AuditListener
 import org.acme.dto.AuditMetadata
 import java.math.BigDecimal
@@ -25,6 +19,8 @@ class Book (
     var title: String,
     var price: BigDecimal,
     var isbn: String,
+    @Column(nullable = true, length = 500)
+    var imageUrl : String?,
     @ManyToOne
     @JoinColumn(name= "author_id", nullable = false)
     var author: Author?,
@@ -41,7 +37,7 @@ class Book (
     }
     
     constructor() : this(
-        null, "", ZERO, "",
+        null, "", ZERO, "", null,
         null, null, null, null)
 
     override fun getAllIds(): List<Long?> {
