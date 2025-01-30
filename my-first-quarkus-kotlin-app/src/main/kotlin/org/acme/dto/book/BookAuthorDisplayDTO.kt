@@ -6,4 +6,5 @@ data class BookAuthorDisplayDTO(
     val id: Long,
     val title: String, 
     val price: BigDecimal,
-    val isbn: String)
+    val isbn: String,
+    val imageUrl: String?)

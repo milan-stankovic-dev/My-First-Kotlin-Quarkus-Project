@@ -6,6 +6,7 @@ data class BookSaveDTO(
     val title: String,
     val price: BigDecimal,
     val isbn: String,
+    val imageUrl: String?,
     val authorId: Long,
     val categoryId: Long,
     val genreId: Long)

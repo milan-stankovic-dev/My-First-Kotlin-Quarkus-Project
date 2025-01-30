@@ -10,6 +10,7 @@ data class BookFullDTO(
     val title: String,
     val price: BigDecimal,
     val isbn: String,
+    val imageUrl: String?,
     val author: AuthorBookDisplayDTO,
     val category: CategoryFullDTO,
     val genre: GenreFullDTO)

@@ -8,7 +8,7 @@ import org.acme.model.Book
 
 fun Book.toFullDTO() : BookFullDTO = BookFullDTO(
         id ?: throw IllegalArgumentException("Book ID found to be null in mapper"),
-        title, price, isbn, 
+        title, price, isbn, imageUrl,
     author?.toDisplayDTO() 
         ?: throw IllegalStateException("Book author found to be null in mapper"),
     category?.toFullDTO() ?: throw IllegalStateException(NULL_ID_ERROR),
@@ -19,4 +19,5 @@ fun Book.toBookAuthorDisplayDTO() : BookAuthorDisplayDTO = BookAuthorDisplayDTO(
     id ?: throw IllegalStateException("Book ID found to be null in mapper"),
     title,
     price,
-    isbn)
+    isbn, 
+    imageUrl)

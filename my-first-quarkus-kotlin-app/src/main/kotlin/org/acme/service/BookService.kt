@@ -8,6 +8,7 @@ import jakarta.ws.rs.NotFoundException
 import org.acme.constants.METADATA
 import org.acme.constants.NOT_FOUND_BY_ID_ERROR
 import org.acme.dto.book.BookFullDTO
+import org.acme.dto.book.BookResponseDTO
 import org.acme.dto.book.BookSaveDTO
 import org.acme.dto.book.BookTitleDTO
 import org.acme.mapper.toBook
@@ -19,6 +20,8 @@ import org.acme.model.Genre
 import org.acme.repository.AuthorRepository
 import org.acme.repository.BookRepository
 import org.acme.repository.GenreRepository
+import kotlin.math.ceil
+import kotlin.streams.toList
 
 @ApplicationScoped
 class BookService {
@@ -31,11 +34,25 @@ class BookService {
     @Inject
     lateinit var categoryService: CategoryService
 
-    fun getAllBooks() : List<BookFullDTO> =
-        repository
-        .streamAll().map {
-            it.toFullDTO()
-        }.toList()
+    fun getAllBooks(page : Int?, size: Int?) : BookResponseDTO {
+        val safePage : Int = page ?: 0
+        val safeSize : Int = size ?: 10
+        
+        val pageOfBooks : List<BookFullDTO> =
+            repository.findAll()
+                .page(safePage, safeSize)
+                .stream().map { it.toFullDTO() }.toList()
+        val totalEntryCount = repository.count()
+        
+        val numOfPages : Int =
+            ceil(totalEntryCount.toDouble() / safeSize.toDouble()).toInt()
+        
+        return BookResponseDTO(pageOfBooks, numOfPages)
+    }
+//        repository
+//        .streamAll().map {
+//            it.toFullDTO()
+//        }.toList()
 
     @Transactional
     fun saveABook(bookSaveDTO: BookSaveDTO): BookFullDTO {

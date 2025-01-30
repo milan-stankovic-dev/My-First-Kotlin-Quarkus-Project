@@ -18,9 +18,10 @@ class BookController {
     lateinit var bookService: BookService
 
     @GET
-    fun getAllBooks(): Response =
+    fun getAllBooks(@QueryParam("page") page: Int?, 
+                    @QueryParam("size") size: Int?): Response =
         Response.ok(
-            bookService.getAllBooks()).build()
+            bookService.getAllBooks(page, size)).build()
 
     @POST
     @Transactional
