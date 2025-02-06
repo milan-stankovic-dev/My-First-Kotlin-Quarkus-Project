@@ -30,6 +30,8 @@ class Book (
     @ManyToOne
     @JoinColumn(name = "genre_id")
     var genre: Genre?,
+    @ManyToMany(mappedBy = "books")
+    var orders: MutableList<Order> = mutableListOf(),
     metadata: AuditMetadata?) : AuditableEntityBase(metadata) {
 
     init {
@@ -38,7 +40,7 @@ class Book (
     
     constructor() : this(
         null, "", ZERO, "", null,
-        null, null, null, null)
+        null, null, null, mutableListOf(), null)
 
     override fun getAllIds(): List<Long?> {
         return listOf(id)

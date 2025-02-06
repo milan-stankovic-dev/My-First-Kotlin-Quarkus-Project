@@ -95,6 +95,9 @@ class BookService {
         repository.delete(bookByIdFromDB)
     }
 
+    fun getById(id: Long) : BookFullDTO? =
+        repository.findById(id)?.toFullDTO()
+
     @Transactional
     fun updateTitle(id: Long, newTitle: BookTitleDTO): BookFullDTO {
         val bookByIdFromDB: Book = repository.findById(id)

@@ -1,5 +1,6 @@
 package org.acme.mapper
 
+import org.acme.constants.METADATA
 import org.acme.constants.NULL_ID_ERROR
 import org.acme.dto.genre.GenreFullDTO
 import org.acme.dto.genre.GenreSaveDTO
@@ -12,3 +13,6 @@ fun Genre.toFullDTO() =
 
 fun GenreSaveDTO.toGenre() = 
     Genre(null, name, description, null)
+
+fun GenreFullDTO.toGenre() =
+    Genre(id, name, description, METADATA)
