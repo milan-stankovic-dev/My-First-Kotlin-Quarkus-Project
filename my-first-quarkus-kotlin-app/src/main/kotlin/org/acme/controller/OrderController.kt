@@ -1,5 +1,6 @@
 package org.acme.controller
 
+import jakarta.annotation.security.RolesAllowed
 import jakarta.inject.Inject
 import jakarta.ws.rs.Consumes
 import jakarta.ws.rs.POST
@@ -19,6 +20,7 @@ class OrderController {
     lateinit var service: OrderService
 
     @POST
+    @RolesAllowed(value=["admin", "user"])
     fun saveOrder(orderForSave: OrderSaveDTO): Response =
         Response.ok(service.saveOrder(orderForSave)).build()
 
