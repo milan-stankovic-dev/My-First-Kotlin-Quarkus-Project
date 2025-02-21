@@ -5,7 +5,7 @@ import jakarta.inject.Singleton
 import java.lang.System.currentTimeMillis
 
 @Singleton
-class BookstoreJWTService {
+class JWTService {
     fun generateJWT() : String {
         return Jwt.issuer("bookstore-jwt")
             .subject("bookstore-jwt")

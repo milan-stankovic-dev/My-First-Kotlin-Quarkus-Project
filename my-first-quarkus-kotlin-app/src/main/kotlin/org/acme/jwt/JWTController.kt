@@ -10,9 +10,9 @@ import jakarta.ws.rs.core.Response
 
 @Path("/jwt")
 @ApplicationScoped
-class BookstoreJWTController {
+class JWTController {
     @Inject
-    lateinit var service: BookstoreJWTService
+    lateinit var service: JWTService
 
     @GET
     @Produces(TEXT_PLAIN)

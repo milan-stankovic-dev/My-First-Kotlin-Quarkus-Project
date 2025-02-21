@@ -12,7 +12,7 @@ import jakarta.ws.rs.core.Response.Status.UNAUTHORIZED
 import jakarta.ws.rs.core.Response.Status.CREATED
 import org.acme.dto.user.LoginRequest
 import org.acme.dto.user.RegisterRequest
-import org.acme.jwt.BookstoreJWTService
+import org.acme.jwt.JWTService
 import org.acme.model.User
 import org.acme.service.AuthService
 
@@ -24,7 +24,7 @@ class AuthController {
     @Inject
     lateinit var service: AuthService
     @Inject
-    lateinit var jwtService: BookstoreJWTService
+    lateinit var jwtService: JWTService
 
     @POST
     @Path("/register")
