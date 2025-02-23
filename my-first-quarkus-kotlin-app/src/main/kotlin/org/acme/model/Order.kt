@@ -9,8 +9,10 @@ import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.JoinTable
 import jakarta.persistence.ManyToMany
+import jakarta.persistence.ManyToOne
 import jakarta.persistence.OneToMany
 import org.acme.audit.AuditListener
+import org.acme.constants.METADATA
 import org.acme.dto.AuditMetadata
 import java.time.LocalDate
 
@@ -21,12 +23,11 @@ class Order(
     @GeneratedValue(strategy = IDENTITY)
     var id: Long? = null,
     var date: LocalDate? = null,
-    @ManyToMany
-    @JoinTable(
-        name="book_order",
-        joinColumns = [JoinColumn(name = "order_id")],
-        inverseJoinColumns = [JoinColumn(name = "book_id")])
-    var books: MutableList<Book> = mutableListOf(),
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    var user: User?,
+    @OneToMany(mappedBy = "order", cascade = [ALL])
+    var items: MutableList<OrderItem> = mutableListOf(),
     metadata: AuditMetadata?) : AuditableEntityBase(metadata) {
 
         init {
@@ -34,10 +35,10 @@ class Order(
         }
 
     constructor() : this(
-        null, LocalDate.now(), mutableListOf(), null
-    )
+        null, LocalDate.now(), null,
+         mutableListOf(), METADATA)
 
     override fun getAllIds(): List<Long?> {
-        return listOf(id)
+        return listOf(id, user?.id)
     }
 }

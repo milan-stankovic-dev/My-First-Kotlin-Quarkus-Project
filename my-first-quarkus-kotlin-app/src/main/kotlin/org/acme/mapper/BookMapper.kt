@@ -15,8 +15,9 @@ fun Book.toFullDTO() : BookFullDTO = BookFullDTO(
     category?.toFullDTO() ?: throw IllegalStateException(NULL_ID_ERROR),
     genre?.toFullDTO() ?: throw IllegalStateException(NULL_ID_ERROR))
 
-fun BookSaveDTO.toBook() : Book = Book(null, title, price, isbn, null, null, null, null,
-    mutableListOf(), null)
+fun BookSaveDTO.toBook() : Book = Book(
+    null, title, price, isbn,
+    null, null, null, null, METADATA)
 fun Book.toBookAuthorDisplayDTO() : BookAuthorDisplayDTO = BookAuthorDisplayDTO(
     id ?: throw IllegalStateException("Book ID found to be null in mapper"),
     title,
@@ -24,9 +25,8 @@ fun Book.toBookAuthorDisplayDTO() : BookAuthorDisplayDTO = BookAuthorDisplayDTO(
     isbn, 
     imageUrl)
 
-fun BookFullDTO.toBook() : Book = Book(
-    id, title, price, isbn, imageUrl,
+fun BookFullDTO.toBook() : Book = Book(id,
+    title, price, isbn, imageUrl,
     author.toAuthor(),
     category.toCategory(),
-    genre.toGenre(),
-    mutableListOf(), METADATA)
+    genre.toGenre(), METADATA)

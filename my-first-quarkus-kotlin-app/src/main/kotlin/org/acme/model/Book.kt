@@ -1,14 +1,12 @@
 package org.acme.model
 
-import io.quarkus.hibernate.orm.panache.kotlin.PanacheEntityBase
 import jakarta.persistence.*
-import jakarta.persistence.CascadeType.ALL
 import jakarta.persistence.GenerationType.IDENTITY
 import org.acme.audit.AuditListener
+import org.acme.constants.METADATA
 import org.acme.dto.AuditMetadata
 import java.math.BigDecimal
 import java.math.BigDecimal.ZERO
-
 
 @Entity
 @EntityListeners(value = [AuditListener::class])
@@ -30,8 +28,6 @@ class Book (
     @ManyToOne
     @JoinColumn(name = "genre_id")
     var genre: Genre?,
-    @ManyToMany(mappedBy = "books")
-    var orders: MutableList<Order> = mutableListOf(),
     metadata: AuditMetadata?) : AuditableEntityBase(metadata) {
 
     init {
@@ -40,7 +36,7 @@ class Book (
     
     constructor() : this(
         null, "", ZERO, "", null,
-        null, null, null, mutableListOf(), null)
+        null, null, null, METADATA)
 
     override fun getAllIds(): List<Long?> {
         return listOf(id)

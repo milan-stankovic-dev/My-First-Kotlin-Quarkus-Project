@@ -21,7 +21,7 @@ class OrderService {
 
     @Transactional
     fun saveOrder(orderForSave: OrderSaveDTO): OrderFullDTO {
-        val bookIds: List<Long> = orderForSave.books.map { it.id }
+        val bookIds: List<Long> = orderForSave.items.map { it.id }
 
         val books: List<BookFullDTO> =
             bookIds.map { bookService.getById(it) ?:
