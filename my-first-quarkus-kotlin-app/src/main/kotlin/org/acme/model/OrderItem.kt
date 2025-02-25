@@ -1,5 +1,6 @@
 package org.acme.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 import org.acme.dto.AuditMetadata
 import jakarta.persistence.GenerationType.IDENTITY
@@ -17,6 +18,7 @@ class OrderItem(
     var book : Book?,
     @ManyToOne
     @JoinColumn(name = "order_id")
+    @JsonIgnore
     var order: Order?,
     @Column
     @Min(value = 1)

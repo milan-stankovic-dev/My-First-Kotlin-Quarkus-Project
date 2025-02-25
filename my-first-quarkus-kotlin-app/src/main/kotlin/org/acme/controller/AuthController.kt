@@ -41,8 +41,8 @@ class AuthController {
             ?: return Response.status(UNAUTHORIZED).build()
         val token: String = jwtService.generateJWT()
 
-        return Response.ok(TokenDTO(token)).build()
+        return Response.ok(TokenDTO(token, user.id!!)).build()
     }
 
-    private data class TokenDTO(val token: String)
+    private data class TokenDTO(val token: String, val userID: Long)
 }
