@@ -7,7 +7,7 @@ import java.time.LocalDate
 
 data class OrderSaveDTO(
     val userId: Long,
-    @PastOrPresent
+    @field:PastOrPresent
     val date: LocalDate,
-    @NotEmpty(message = "You must order at least one item.")
+    @field:NotEmpty(message = "You must order at least one item.")
     val items: List<OrderItemFullDTO>)
