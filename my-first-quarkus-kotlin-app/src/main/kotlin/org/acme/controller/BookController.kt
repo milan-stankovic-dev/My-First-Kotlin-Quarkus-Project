@@ -2,6 +2,7 @@ package org.acme.controller
 
 import jakarta.inject.Inject
 import jakarta.transaction.Transactional
+import jakarta.validation.Valid
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType.APPLICATION_JSON
 import jakarta.ws.rs.core.Response
@@ -25,7 +26,7 @@ class BookController {
 
     @POST
     @Transactional
-    fun saveBook(bookToSave: BookSaveDTO) : Response {
+    fun saveBook(@Valid bookToSave: BookSaveDTO) : Response {
         return Response.ok(
             bookService.saveABook(bookToSave)).build()
     }
@@ -39,7 +40,7 @@ class BookController {
 
     @PATCH
     @Path("{id}")
-    fun updateTitle(@RequestBody newTitle: BookTitleDTO,
+    fun updateTitle(@Valid @RequestBody newTitle: BookTitleDTO,
                     @PathParam("id") id: Long): Response =
         Response.ok(
             bookService.updateTitle(id, newTitle)).build();
