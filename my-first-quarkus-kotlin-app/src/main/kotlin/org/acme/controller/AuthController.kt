@@ -2,6 +2,7 @@ package org.acme.controller
 
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
+import jakarta.validation.Valid
 import jakarta.ws.rs.Consumes
 import jakarta.ws.rs.POST
 import jakarta.ws.rs.Path
@@ -28,7 +29,7 @@ class AuthController {
 
     @POST
     @Path("/register")
-    fun register(request: RegisterRequest) : Response {
+    fun register(@Valid request: RegisterRequest) : Response {
         val user : User = service.registerUser(request)
         return Response.status(CREATED)
             .entity(user).build()
@@ -36,7 +37,7 @@ class AuthController {
 
     @POST
     @Path("/login")
-    fun login(request: LoginRequest) : Response {
+    fun login(@Valid request: LoginRequest) : Response {
         val user: User = service.authenticate(request)
             ?: return Response.status(UNAUTHORIZED).build()
         val token: String = jwtService.generateJWT()

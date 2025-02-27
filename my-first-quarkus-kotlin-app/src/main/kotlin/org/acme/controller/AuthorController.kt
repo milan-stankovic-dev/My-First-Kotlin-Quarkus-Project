@@ -1,6 +1,7 @@
 package org.acme.controller
 
 import jakarta.inject.Inject
+import jakarta.validation.Valid
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType.APPLICATION_JSON
 import jakarta.ws.rs.core.Response
@@ -19,7 +20,7 @@ class AuthorController {
         Response.ok(service.getById(id)).build()
     
     @POST
-    fun saveAuthor(author: AuthorSaveDTO) : Response = 
+    fun saveAuthor(@Valid author: AuthorSaveDTO) : Response =
         Response.ok(service.save(author)).build()
     
     @DELETE
@@ -32,6 +33,6 @@ class AuthorController {
     @PUT
     @Path("/{id}")
     fun changeEntireAuthor(@PathParam("id") id: Long,
-                           authorData: AuthorSaveDTO) : Response = 
+                           @Valid authorData: AuthorSaveDTO) : Response =
         Response.ok(service.update(id, authorData)).build()
 }
