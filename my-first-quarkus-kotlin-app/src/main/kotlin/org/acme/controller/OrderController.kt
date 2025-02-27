@@ -11,7 +11,6 @@ import jakarta.ws.rs.core.MediaType.APPLICATION_JSON
 import jakarta.ws.rs.core.Response
 import org.acme.dto.order.OrderSaveDTO
 import org.acme.service.OrderService
-import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody
 
 @Path("/order")
 @Produces(APPLICATION_JSON)
